@@ -32,10 +32,11 @@ module.exports = {
             'error',
             'always'
         ],
-        'non-var':          'off',  // Intentionally turned off
-        'prefer-const':     'off',  // Intentionally turned off
-        'no-unused-vars':   'error',
-        'no-global-assign': 'error',
+        '@typescript-eslint/no-inferrable-types':   'off',  // Intentionally turned off
+        'non-var':                                  'off',  // Intentionally turned off
+        'prefer-const':                             'off',  // Intentionally turned off
+        'no-unused-vars':       'error',
+        'no-global-assign':     'error',
         '@typescript-eslint/naming-convention': [
             'error',
             {
