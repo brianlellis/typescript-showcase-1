@@ -31,6 +31,26 @@ module.exports = {
         'semi': [
             'error',
             'always'
+        ],
+        'non-var':          'off',  // Intentionally turned off
+        'prefer-const':     'off',  // Intentionally turned off
+        'no-unused-vars':   'error',
+        'no-global-assign': 'error',
+        '@typescript-eslint/naming-convention': [
+            'error',
+            {
+                selector:           'variable',
+                format:             ['snake_case'],
+                leadingUnderscore:  'allow',
+                trailingUnderscore: 'allow',
+            },
+            {
+                selector:           'variable',
+                modifiers:          ['const'],
+                format:             ['UPPER_CASE'],
+                leadingUnderscore:  'allow',
+                trailingUnderscore: 'allow',
+            }
         ]
     }
 };

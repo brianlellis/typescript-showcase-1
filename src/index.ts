@@ -1,5 +1,6 @@
 function hello() {
-    const return_str = 'hello';
-    console.log( return_str );
+    let return_let      = 'hello';
+    const r_const  = ' world!';
+    console.log(return_let+r_const);
 }
 hello();

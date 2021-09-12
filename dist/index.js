@@ -1,7 +1,8 @@
 "use strict";
 function hello() {
-    var return_str = 'hello';
-    console.log(return_str);
+    let return_let      = 'hello';
+    const RETURN_CONST  = ' world!';
+    console.log(return_let+return_const);
 }
 hello();
 //# sourceMappingURL=index.js.map
