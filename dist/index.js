@@ -1,8 +1,7 @@
-"use strict";
-function hello() {
-    var return_let = 'hello';
-    var RETURN_CONST = ' world!';
-    console.log(return_let + RETURN_CONST);
-}
-hello();
+import Invoice from "./Classes/Invoice.js";
+const exp = (msg, msg2) => msg + msg2;
+const printOutStr = (value) => console.log(value);
+printOutStr(exp('Brian', ' Ellis'));
+const GOOGLE = new Invoice('Google');
+printOutStr(GOOGLE.name);
 //# sourceMappingURL=index.js.map

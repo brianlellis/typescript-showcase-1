@@ -8,6 +8,14 @@ module.exports = {
         'eslint:recommended',
         'plugin:@typescript-eslint/recommended'
     ],
+    'overrides': [
+        {
+            'files': ['*.ts', '*.tsx'], // Your TypeScript files extension
+            'parserOptions': {
+                'project': ['./tsconfig.json'], // Specify it only for TypeScript files
+            },
+        }
+    ],
     'parser': '@typescript-eslint/parser',
     'parserOptions': {
         'ecmaVersion': 12
@@ -40,17 +48,29 @@ module.exports = {
         '@typescript-eslint/naming-convention': [
             'error',
             {
-                selector:           'variable',
+                selector:           ['variable', 'parameter'],
+                types:              ['boolean', 'string', 'number', 'array'],
                 format:             ['snake_case'],
                 leadingUnderscore:  'allow',
                 trailingUnderscore: 'allow',
+
             },
             {
                 selector:           'variable',
+                types:              ['boolean', 'string', 'number', 'array'],
                 modifiers:          ['const'],
                 format:             ['UPPER_CASE'],
                 leadingUnderscore:  'allow',
-                trailingUnderscore: 'allow',
+                trailingUnderscore: 'allow'
+            },
+            {
+                selector:           'function',
+                format:             ['strictCamelCase']
+            },
+            {
+                selector:           'variable',
+                types:              ['function'],
+                format:             ['strictCamelCase']
             }
         ]
     }
