@@ -1,10 +1,11 @@
 import { Record , Address } from '@class/Record';
-import { consoleError } from '@class/UtilPrint';
 
 type BookRecord = {
   type:   string, // debit , credit
   amount: number
 };
+
+type BookRecordPersistAttempt = { success: boolean , data: BookRecord, msg: string };
 
 export default class Invoice extends Record {
   records: BookRecord[] = [];
@@ -32,20 +33,39 @@ export default class Invoice extends Record {
     return !isNaN( amount );
   }
 
-  createBookRecord( record: BookRecord , use_strict: boolean = false ): BookRecord {
+  private successCreateBookRecord( record: BookRecord , msg: string = 'success' ): BookRecordPersistAttempt {
+    return  {
+      success: true,
+      data: record,
+      msg
+    };
+  }
+
+  private failCreateBookRecord( record: BookRecord , msg: string ): BookRecordPersistAttempt {
+    return  {
+      success: false,
+      data: record,
+      msg
+    };
+  }
+
+  createBookRecord( record: BookRecord , use_strict: boolean = false ): BookRecordPersistAttempt {
     if ( !this.isBookRecordType( record.type ) ) {
-      consoleError( 'BookRecord not created as type not debit or credit', record );
+      return this.failCreateBookRecord( record , 'BookRecord not created as type not debit or credit' );
     }
     if ( !this.isBookRecordAmount( record.amount ) ) {
-      consoleError( 'BookRecord not created as amount not a number', record );
+      return this.failCreateBookRecord( record , 'BookRecord not created as amount not a number');
     }
 
     if ( use_strict ) {
-      if ( this.evalBookRecordProps( record ) ) this.records.push( record );
-      else consoleError( 'BookRecord not created (too many props):', record );
+      if ( this.evalBookRecordProps( record ) ) {
+        this.records.push( record );
+      } else {
+        return this.failCreateBookRecord( record , 'BookRecord not created (too many props)');
+      }
     }
 
-    return record;
+    return this.successCreateBookRecord( record );
   }
 
   printOutRecords(): void {

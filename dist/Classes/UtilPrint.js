@@ -1,15 +1,13 @@
-const formatStr = (records) => {
-    let str_concat = '';
-    for (const VALUE of records) {
-        if ('object' === typeof VALUE) {
-            for (const KEY in VALUE) {
-                str_concat += `${KEY}: ${VALUE[KEY]} (${typeof VALUE[KEY]})\n`;
-            }
+const formatStr = (records, tab = '') => {
+    return Object.entries(records)
+        .map(([key, value]) => {
+        if (typeof value !== 'object')
+            return `${tab}${key}: ${value} (${typeof value})\n`;
+        else {
+            return `${tab}${key} \n${formatStr(value, (tab + '\t'))}`;
         }
-        else
-            str_concat += `${VALUE}\n`;
-    }
-    return str_concat;
+    })
+        .join('');
 };
 export const consoleError = (...records) => {
     const STYLE = 'color: white; background-color: #df3b3b;';

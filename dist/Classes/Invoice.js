@@ -1,5 +1,4 @@
 import { Record } from "./Record.js";
-import { consoleError } from "./UtilPrint.js";
 export default class Invoice extends Record {
     constructor(name, abbr, address) {
         super(name, abbr, address);
@@ -21,20 +20,36 @@ export default class Invoice extends Record {
     isBookRecordAmount(amount) {
         return !isNaN(amount);
     }
+    successCreateBookRecord(record, msg = 'success') {
+        return {
+            success: true,
+            data: record,
+            msg
+        };
+    }
+    failCreateBookRecord(record, msg) {
+        return {
+            success: false,
+            data: record,
+            msg
+        };
+    }
     createBookRecord(record, use_strict = false) {
         if (!this.isBookRecordType(record.type)) {
-            consoleError('BookRecord not created as type not debit or credit', record);
+            return this.failCreateBookRecord(record, 'BookRecord not created as type not debit or credit');
         }
         if (!this.isBookRecordAmount(record.amount)) {
-            consoleError('BookRecord not created as amount not a number', record);
+            return this.failCreateBookRecord(record, 'BookRecord not created as amount not a number');
         }
         if (use_strict) {
-            if (this.evalBookRecordProps(record))
+            if (this.evalBookRecordProps(record)) {
                 this.records.push(record);
-            else
-                consoleError('BookRecord not created (too many props):', record);
+            }
+            else {
+                return this.failCreateBookRecord(record, 'BookRecord not created (too many props)');
+            }
         }
-        return record;
+        return this.successCreateBookRecord(record);
     }
     printOutRecords() {
         for (const RECORD of this.records) {
