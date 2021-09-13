@@ -1,7 +1,4 @@
 import Invoice from "./Classes/Invoice.js";
-const exp = (msg, msg2) => msg + msg2;
-const printOutStr = (value) => console.log(value);
-printOutStr(exp('Brian', ' Ellis'));
 const CO_INFO = {
     name: 'Google',
     abbr: 'GOOGL',
