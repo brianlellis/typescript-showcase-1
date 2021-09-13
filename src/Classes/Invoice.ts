@@ -58,11 +58,8 @@ export default class Invoice extends Record {
     }
 
     if ( use_strict ) {
-      if ( this.evalBookRecordProps( record ) ) {
-        this.records.push( record );
-      } else {
-        return this.failCreateBookRecord( record , 'BookRecord not created (too many props)');
-      }
+      if ( this.evalBookRecordProps( record ) ) this.records.push( record );
+      else return this.failCreateBookRecord( record , 'BookRecord not created (too many props)');
     }
 
     return this.successCreateBookRecord( record );

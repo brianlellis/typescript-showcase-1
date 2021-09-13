@@ -6,29 +6,27 @@ export class DomTable {
   create( table_info: any ): void {
     let body    = '';
     let headers = '';
-    let rows    = '';
-    let cells   = '';
     
     if ( table_info.heads ) {
       for( const KEY in table_info.heads ) {
         headers += this.Wrap( table_info.heads[ KEY ], 'th' );
       }
+      body += this.Wrap( headers, 'thead' );
     }
     
     if ( table_info.rows ) {
+      let rows = '';
       for( const KEY in table_info.rows ) {
-        cells = '';
+        let cells = '';
         
         for( const INNER_KEY in table_info.rows[ KEY ] ) {
           cells += this.Wrap( table_info.rows[ KEY ][ INNER_KEY ] , 'td' );
         }
         
-        if ( cells ) rows += this.Wrap( cells, 'tr' );
+        rows += this.Wrap( cells, 'tr' );
       }
+      body += this.Wrap( rows, 'tbody' );
     }
-    
-    if ( headers )  body += this.Wrap( headers, 'thead' );
-    if ( rows )     body += this.Wrap( rows, 'tbody' );
     document.body.innerHTML += this.Wrap( body , 'table', table_info.class );
   }
 }
