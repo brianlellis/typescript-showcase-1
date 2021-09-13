@@ -5,6 +5,7 @@ export class Record {
         this.address = address;
         this.profile = { name, abbr, address };
     }
+    nameWithAbbr() { return `${this.name}: ${this.abbr}`; }
     printOutProfile(value) { console.log(value); }
 }
 //# sourceMappingURL=Record.js.map

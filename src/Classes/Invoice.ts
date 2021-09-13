@@ -1,4 +1,5 @@
 import { Record , Address } from '@class/Record';
+import { consoleError } from '@class/UtilPrint';
 
 type BookRecord = {
   type:   string, // debit , credit
@@ -16,30 +17,35 @@ export default class Invoice extends Record {
     super(name, abbr, address);
   }
 
-  nameWithAbbr(): string {
-    return `${this.name}: ${this.abbr}`;
-  }
-
-  isBookRecord( record: BookRecord ): boolean {
+  private evalBookRecordProps( record: BookRecord ): boolean {
     for ( const KEY in record ) {
       if ( 'type' !== KEY && 'amount' !== KEY ) return false;
     }
     return true;
   }
 
-  createBookRecord( type: string , amount: number ): BookRecord {
-    return {
-      type,
-      amount
-    };
+  private isBookRecordType( type: string ): boolean {
+    return ( 'debit' === type || 'credit' === type );
   }
 
-  createRecords( records: BookRecord[] ): boolean {
-    for ( const RECORD of records ) {
-      if ( this.isBookRecord( RECORD ) ) this.records.push( RECORD );
-      else console.log( 'Record omitted (too many props):', RECORD );
+  private isBookRecordAmount( amount: number ): boolean {
+    return !isNaN( amount );
+  }
+
+  createBookRecord( record: BookRecord , use_strict: boolean = false ): BookRecord {
+    if ( !this.isBookRecordType( record.type ) ) {
+      consoleError( 'BookRecord not created as type not debit or credit', record );
     }
-    return true;
+    if ( !this.isBookRecordAmount( record.amount ) ) {
+      consoleError( 'BookRecord not created as amount not a number', record );
+    }
+
+    if ( use_strict ) {
+      if ( this.evalBookRecordProps( record ) ) this.records.push( record );
+      else consoleError( 'BookRecord not created (too many props):', record );
+    }
+
+    return record;
   }
 
   printOutRecords(): void {

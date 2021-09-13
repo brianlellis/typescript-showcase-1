@@ -22,5 +22,7 @@ export class Record {
     this.profile = { name , abbr , address };
   }
 
+  nameWithAbbr(): string { return `${this.name}: ${this.abbr}`; }
+
   printOutProfile( value: Profile ): void { console.log( value ); }
 }
