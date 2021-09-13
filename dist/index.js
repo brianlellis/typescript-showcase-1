@@ -6,6 +6,7 @@ document.body.innerHTML += `
 <style scoped>
   table { width: 47vw; text-align: center; float: left; margin: 0 1vw;  border: 2px solid #000; }
   table tr:nth-child( even ) { background: #CCC; }
+  table thead { background: #000; color: #FFF; }
   .success th, .success td {
     width: 25%
   }

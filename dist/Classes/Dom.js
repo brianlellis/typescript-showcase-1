@@ -1,12 +1,7 @@
 export class DomTable {
-    Wrap(value, class_str = '') {
-        return value ? `<table class="${class_str}">${value}</table>` : value;
+    Wrap(value, tag = '', class_str = '') {
+        return value ? `<${tag} class="${class_str}">${value}</${tag}>` : value;
     }
-    Body(value) { return `<tbody>${value}</tbody>`; }
-    Head(value) { return `<thead>${value}</thead>`; }
-    tHead(value) { return `<th>${value}</th>`; }
-    tRow(value) { return `<tr>${value}</tr>`; }
-    tCell(value) { return `<td>${value}</td>`; }
     create(table_info) {
         let body = '';
         let headers = '';
@@ -14,24 +9,24 @@ export class DomTable {
         let cells = '';
         if (table_info.heads) {
             for (const KEY in table_info.heads) {
-                headers += this.tHead(table_info.heads[KEY]);
+                headers += this.Wrap(table_info.heads[KEY], 'th');
             }
         }
         if (table_info.rows) {
             for (const KEY in table_info.rows) {
                 cells = '';
                 for (const INNER_KEY in table_info.rows[KEY]) {
-                    cells += this.tCell(table_info.rows[KEY][INNER_KEY]);
+                    cells += this.Wrap(table_info.rows[KEY][INNER_KEY], 'td');
                 }
                 if (cells)
-                    rows += this.tRow(cells);
+                    rows += this.Wrap(cells, 'tr');
             }
         }
         if (headers)
-            body += this.Head(headers);
+            body += this.Wrap(headers, 'thead');
         if (rows)
-            body += this.Body(rows);
-        document.body.innerHTML += this.Wrap(body, table_info.class);
+            body += this.Wrap(rows, 'tbody');
+        document.body.innerHTML += this.Wrap(body, 'table', table_info.class);
     }
 }
 //# sourceMappingURL=Dom.js.map
