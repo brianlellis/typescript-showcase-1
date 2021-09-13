@@ -28,8 +28,5 @@ const BOOK_RECORDS  = [
   { type: 'credit' , amount: 225.32 , phone: null }
 ];
 GOOGLE.createRecords( BOOK_RECORDS );
-
-
-printOutStr( GOOGLE.nameWithAbbr() );
 GOOGLE.printOutProfile( GOOGLE.profile );
 GOOGLE.printOutRecords();

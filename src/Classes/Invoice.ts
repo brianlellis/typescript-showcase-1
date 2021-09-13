@@ -1,4 +1,4 @@
-import { Record, Address } from '@class/Record';
+import { Record , Address } from '@class/Record';
 
 type BookRecord = {
   type:   string, // debit , credit
@@ -9,8 +9,8 @@ export default class Invoice extends Record {
   records: BookRecord[] = [];
 
   constructor(
-    public name: string,
-    public abbr: string,
+    public name:    string,
+    public abbr:    string,
     public address: Address
   ) {
     super(name, abbr, address);
