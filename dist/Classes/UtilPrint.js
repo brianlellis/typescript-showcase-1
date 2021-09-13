@@ -1,11 +1,9 @@
 const formatStr = (records, tab = '') => {
     return Object.entries(records)
         .map(([key, value]) => {
-        if (typeof value !== 'object')
-            return `${tab}${key}: ${value} (${typeof value})\n`;
-        else {
-            return `${tab}${key} \n${formatStr(value, (tab + '\t'))}`;
-        }
+        return (typeof value !== 'object') ?
+            `${tab}${key}: ${value} (${typeof value})\n` :
+            `${tab}${key} \n${formatStr(value, (tab + '\t'))}`;
     })
         .join('');
 };
